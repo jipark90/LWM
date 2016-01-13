@@ -1054,6 +1054,12 @@ namespace WpfApplication6
             {
                 stopReplay = false;
             }
+            if(StopBtn.Content == "시작으로")
+            {
+                startBtn.Content = "시 작";
+                StopBtn.Content = "정 지";
+                startBtnGrid.RowDefinitions[1].Height = new GridLength(0, GridUnitType.Pixel);
+            }
         }
 
         private void Button_Click_5(object sender, RoutedEventArgs e)

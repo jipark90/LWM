@@ -117,7 +117,6 @@
                         <ni:NumericTextBoxDouble Grid.Row="2" Height="30" HorizontalAlignment="Left" Margin="6,73,0,0" Name="numericTextBoxDouble1" VerticalAlignment="Top" Width="146" ValueChanged="numericTextBoxDouble1_ValueChanged" />
                         <ni:NumericTextBoxDouble Grid.Row="1" Height="30" Margin="171,73,233,0" Name="numericTextBoxDouble2" VerticalAlignment="Top" ValueChanged="numericTextBoxDouble2_ValueChanged" IsEnabled="False" />
                         <ni:NumericTextBoxDouble Grid.Row="2" Height="30" HorizontalAlignment="Left" Margin="315,73,0,0" Name="numericTextBoxDouble3" VerticalAlignment="Top" Width="135" ValueChanged="numericTextBoxDouble3_ValueChanged" IsEnabled="False" />
-                        <ni:NumericTextBoxDouble Grid.Row="1" Height="30" HorizontalAlignment="Left" Margin="6,121,0,0" Name="numericTextBoxDouble4" VerticalAlignment="Top" Width="146" />
                         
                         <Label Content="센서 입력 최대 전압(V)" Grid.Row="0" HorizontalAlignment="Left" Margin="279,53,0,0" VerticalAlignment="Top" />
                         <Label Content="센서 입력 최소 전압(V)" Grid.Row="0" HorizontalAlignment="Left" Margin="279,131,0,0" VerticalAlignment="Top" />

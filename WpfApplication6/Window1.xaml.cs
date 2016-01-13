@@ -60,7 +60,6 @@ namespace WpfApplication6
             this.numericTextBoxDouble1.Value = Properties.Settings.Default.samplingSpeed;
             this.numericTextBoxDouble2.Value = Properties.Settings.Default.samplesPerChannelNumeric;
             this.numericTextBoxDouble3.Value = Properties.Settings.Default.rateNumeric;
-            this.numericTextBoxDouble4.Value = Properties.Settings.Default.jobDuration;
             this.textBox5.Text = Properties.Settings.Default.txtFilePath;
             this.textBox7.Text = Properties.Settings.Default.databaseID;
             this.passwordBox1.Password = Properties.Settings.Default.databasePwd;
@@ -187,7 +186,6 @@ namespace WpfApplication6
             Properties.Settings.Default.databasePwd = this.passwordBox1.Password;
             Properties.Settings.Default.projectName = this.textBox8.Text;
             Properties.Settings.Default.jobNum = Convert.ToDouble(this.textBox10.Text);
-            Properties.Settings.Default.jobDuration = this.numericTextBoxDouble4.Value;
             checkListBox1_saveToProperty();
             Properties.Settings.Default.Save();
 
@@ -337,7 +335,7 @@ namespace WpfApplication6
             {
                 foreach (DirectoryInfo sub_d2 in sub_d.GetDirectories())
                 {
-                    foreach (FileInfo fi in sub_d2.GetFiles())
+                    foreach (FileInfo fi in sub_d2.GetFiles().OrderBy(p => p.LastWriteTime))
                     {
                         DataRow dr = dt.NewRow();
 
@@ -358,6 +356,7 @@ namespace WpfApplication6
         {
             Properties.Settings.Default.Save();
             mainForm.startBtn.Content = "재 생";
+            mainForm.StopBtn.Content = "시작으로";
             mainForm.startBtnGrid.RowDefinitions[0].Height = new GridLength(1, GridUnitType.Star);
             mainForm.startBtnGrid.RowDefinitions[1].Height = new GridLength(50, GridUnitType.Pixel);
             mainForm.setPathForReplay();
