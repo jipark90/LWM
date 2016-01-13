@@ -360,6 +360,7 @@ namespace WpfApplication6
             mainForm.startBtn.Content = "재 생";
             mainForm.startBtnGrid.RowDefinitions[0].Height = new GridLength(1, GridUnitType.Star);
             mainForm.startBtnGrid.RowDefinitions[1].Height = new GridLength(50, GridUnitType.Pixel);
+            mainForm.setPathForReplay();
             //mainForm.replay();
             this.Close();
         }

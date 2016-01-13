@@ -49,7 +49,7 @@ namespace WpfApplication6
         {
             InitializeComponent();
         }
-        
+
         private AnalogMultiChannelReader analogInReader;
         private NationalInstruments.DAQmx.Task myTask;
 
@@ -101,11 +101,15 @@ namespace WpfApplication6
         private int current_replay_rowNum = 0;
         private int replayRow = 0;
         private DataTable replaydt = new DataTable();
+        private List<string> pathForReplay = new List<string>();
+        private bool replayType = false;
+        private static volatile bool stopReplay = false;
+        private int replayCount = 0;
 
         private Thread addDataRunner;
         public delegate void AddDataDelegate();
         public AddDataDelegate addDataDel;
-
+        
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (this.WindowState == System.Windows.WindowState.Normal)
@@ -168,7 +172,11 @@ namespace WpfApplication6
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             if (startBtn.Content == "재 생")
-                replay();
+            {
+                stopReplay = true;
+                replayCount++;
+                replay(Properties.Settings.Default.replayFilePath);
+            }
             else
                 firstMainPerformance(isLogin);
         }
@@ -1042,6 +1050,10 @@ namespace WpfApplication6
                 endTrigger = false;
                 isfirst = false;
             }
+            if(stopReplay == true)
+            {
+                stopReplay = false;
+            }
         }
 
         private void Button_Click_5(object sender, RoutedEventArgs e)
@@ -1172,14 +1184,14 @@ namespace WpfApplication6
             }
         }
 
-        public void replay()
+        public void replay(string replayFilePath)
         {
             string[] replayColumns = null;
-            var lines = File.ReadAllLines(Properties.Settings.Default.replayFilePath);
+            var lines = File.ReadAllLines(replayFilePath);
 
             replaydt.Clear();
             replaydt.Columns.Clear();
-
+            chart1.Invalidate();
             // assuming the first row contains the columns information
             if (lines.Count() > 0)
             {
@@ -1210,13 +1222,21 @@ namespace WpfApplication6
             chart1.ChartAreas[0].AxisX.Maximum = Convert.ToDouble(replaydt.Rows[replaydt.Rows.Count - 1][3]) / Convert.ToDouble(replaydt.Rows[1][3]);
             chart1.Series[0].Points.Clear();
             replayRow = 1;
-            
+
+            chart1.DataSource = replaydt;
+            chart1.Series[0].XValueMember = "Time";
+            chart1.Series[0].YValueMembers = "Plsm";
+            chart1.DataBind();
+
+            /*
+            stopReplay = true;
             ThreadStart addDataThreadStart = new ThreadStart(AddDataThreadLoop);
             addDataRunner = new Thread(addDataThreadStart);
 
             addDataDel += new AddDataDelegate(AddData);
             addDataRunner.Priority = ThreadPriority.Highest;
             addDataRunner.Start();
+            */
         }
 
         private void AddDataThreadLoop()
@@ -1224,7 +1244,10 @@ namespace WpfApplication6
             while (replayRow < current_replay_rowNum)
             {
                 chart1.Invoke(addDataDel);
+                if (stopReplay == false)
+                    break;
             }
+            stopReplay = false;
         }
 
         public void AddData()
@@ -1264,7 +1287,47 @@ namespace WpfApplication6
 
         private void nextBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            if(stopReplay == true)
+            {
+                stopReplay = false;
+            }
+            int tmpNextReplayPathIndex = pathForReplay.FindIndex(delegate (string s) { return s == Properties.Settings.Default.replayFilePath; });
+            if(pathForReplay[tmpNextReplayPathIndex] == pathForReplay.Last())
+                Properties.Settings.Default.replayFilePath = pathForReplay[0];
+            else
+                Properties.Settings.Default.replayFilePath = pathForReplay[tmpNextReplayPathIndex + 1];
+            replay(Properties.Settings.Default.replayFilePath);
         }
+
+        public void setPathForReplay()
+        {
+            string rootPath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + "SF LWM\\";
+            DirectoryInfo di = new DirectoryInfo(rootPath);
+            foreach (DirectoryInfo sub_d in di.GetDirectories())
+            {
+                foreach (DirectoryInfo sub_d2 in sub_d.GetDirectories())
+                {
+                    foreach (FileInfo fi in sub_d2.GetFiles())
+                    {
+                        pathForReplay.Add(fi.FullName);
+                    }
+                }
+            }
+        }
+
+        private void backBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (stopReplay == true)
+            {
+                stopReplay = false;
+            }
+            int tmpNextReplayPathIndex = pathForReplay.FindIndex(delegate (string s) { return s == Properties.Settings.Default.replayFilePath; });
+            if (pathForReplay[tmpNextReplayPathIndex] == pathForReplay[0])
+                Properties.Settings.Default.replayFilePath = pathForReplay.Last();
+            else
+                Properties.Settings.Default.replayFilePath = pathForReplay[tmpNextReplayPathIndex - 1];
+            replay(Properties.Settings.Default.replayFilePath);
+        }
+        
     }
 }

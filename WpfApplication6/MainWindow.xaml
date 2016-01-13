@@ -220,14 +220,9 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Button Style="{StaticResource StackButton2}" Grid.Column="0" Background="{x:Null}" BorderThickness="1" BorderBrush="DarkGray" Foreground="White" Margin="0,5,0,0" FontSize="10" Name="backBtn">
+                    <Button Style="{StaticResource StackButton2}" Grid.Column="0" Background="{x:Null}" BorderThickness="1" BorderBrush="DarkGray" Foreground="White" Margin="0,5,0,0" FontSize="10" Name="backBtn" Click="backBtn_Click">
                         <Grid>
                             <Image RenderOptions.BitmapScalingMode="HighQuality" Source="/WpfApplication6;component/Images/previous.png" />
-                        </Grid>
-                    </Button>
-                    <Button Style="{StaticResource StackButton2}" Grid.Column="1" Background="{x:Null}" BorderThickness="1" BorderBrush="DarkGray" Foreground="White" Margin="0,5,0,0" FontSize="10" Name="replayBtn">
-                        <Grid>
-                            <Image RenderOptions.BitmapScalingMode="HighQuality" Source="/WpfApplication6;component/Images/replayBtn.png" />
                         </Grid>
                     </Button>
                     <Button Style="{StaticResource StackButton2}" Grid.Column="2" Background="{x:Null}" BorderThickness="1" BorderBrush="DarkGray" Foreground="White" Margin="0,5,0,0" FontSize="10" Name="nextBtn" Click="nextBtn_Click">
