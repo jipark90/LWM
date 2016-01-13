@@ -1,0 +1,84 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WpfApplication6.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="databaseID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">root</Value>
+    </Setting>
+    <Setting Name="databaseName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">rlw</Value>
+    </Setting>
+    <Setting Name="databasePwd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1231</Value>
+    </Setting>
+    <Setting Name="databaseNormalData" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="textFilePathSetting" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\Public\Documents\SF LWM\test.txt</Value>
+    </Setting>
+    <Setting Name="projectName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">test</Value>
+    </Setting>
+    <Setting Name="jobDuration" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="samplesPerChannelNumeric" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="rateNumeric" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">10000</Value>
+    </Setting>
+    <Setting Name="samplingSpeed" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="physicalChannel" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Dev1/ai0</Value>
+    </Setting>
+    <Setting Name="maxVoltage" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="minVoltage" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-10</Value>
+    </Setting>
+    <Setting Name="physicalChannelCheckedIndex" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="jobNum" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="sensor1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">플라즈마</Value>
+    </Setting>
+    <Setting Name="sensor2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">온도</Value>
+    </Setting>
+    <Setting Name="sensor3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Reflextion(Reserved)</Value>
+    </Setting>
+    <Setting Name="sensor4" Type="System.String" Scope="User">
+      <Value Profile="(Default)">4번 센서(Reserved)</Value>
+    </Setting>
+    <Setting Name="projectNum" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="txtFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\Public\Documents\SF LWM\</Value>
+    </Setting>
+    <Setting Name="reference_id" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="measured_index" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="replayFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="replayTimeUnit" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="partName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

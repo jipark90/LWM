@@ -1,0 +1,655 @@
+﻿<Window x:Class="WpfApplication6.MainWindow"
+        xmlns:local="clr-namespace:WpfApplication6"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+        xmlns:swf="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+        xmlns:sw="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        Title="MainWindow" Height="700" Width="1200" MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseDoubleClick="Window_MouseDoubleClick" Loaded="Window_Loaded"
+        Background="{DynamicResource backgraundColor}">
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome
+            ResizeBorderThickness="10" 
+            CaptionHeight="0" 
+            CornerRadius="0"
+            GlassFrameThickness="0">
+        </shell:WindowChrome>
+    </shell:WindowChrome.WindowChrome>
+
+    <Window.Resources>       
+        <LinearGradientBrush x:Key="backgraundColor" EndPoint="0.5,1" StartPoint="0.5,0" x:Name="mainGradinetBrush">
+            <GradientStop x:Name="test" Color="Black" Offset="0" />
+            <GradientStop Color="#FF626262" Offset="1" />
+        </LinearGradientBrush>
+        <ObjectDataProvider x:Key="notifyingDate" ObjectType="{x:Type local:NotifyingDateTime}" />
+        <LinearGradientBrush x:Key="BlueGradientBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="DarkGray" Offset="0" />
+            <GradientStop Color="DimGray"  Offset="0.3" />
+            <GradientStop Color="DimGray"  Offset="0.7" />
+            <GradientStop Color="#FF5C6890" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="GrnGradientBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#FF2C722C" Offset="0" />
+            <GradientStop Color="#FF5CBE5C"  Offset="0.3" />
+            <GradientStop Color="#FF5CBE5C"  Offset="0.7" />
+            <GradientStop Color="#FF2C722C" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="RedGradientBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#FF862D2D" Offset="0" />
+            <GradientStop Color="#FFDB5D5D"  Offset="0.3" />
+            <GradientStop Color="#FFDB5D5D"  Offset="0.7" />
+            <GradientStop Color="#FF862D2D" Offset="1" />
+        </LinearGradientBrush>
+        <Style x:Key="MainButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="Border" BorderThickness="0" BorderBrush="Transparent" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.8"/>
+                            </Trigger>
+                            <EventTrigger RoutedEvent="Click">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.8" To="1" Duration="0:0:1" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="StackButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Background" Value="{StaticResource BlueGradientBrush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="Border" Margin="1" BorderThickness="0" BorderBrush="Transparent" Background="{StaticResource BlueGradientBrush}" CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.5"/>
+                                <Setter Property="Button.Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="White" Direction="150" ShadowDepth="0" BlurRadius="5" Opacity="1"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="startButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Background" Value="{StaticResource GrnGradientBrush}"/>
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="Border" Margin="1" BorderThickness="0" BorderBrush="Transparent" Background="{StaticResource GrnGradientBrush}" CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.5"/>
+                                <Setter Property="Button.Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="White" Direction="150" ShadowDepth="0" BlurRadius="5" Opacity="1"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="stopButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Background" Value="{StaticResource RedGradientBrush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="Border" Margin="1" BorderThickness="0" BorderBrush="Transparent" Background="{StaticResource RedGradientBrush}" CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.5"/>
+                                <Setter Property="Button.Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="White" Direction="150" ShadowDepth="0" BlurRadius="5" Opacity="1"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="StackButton2" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="Border" Margin="0" BorderThickness="0" BorderBrush="Transparent" Background="{x:Null}" CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.5"/>
+                                <Setter Property="Button.Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="White" Direction="150" ShadowDepth="0" BlurRadius="5" Opacity="1"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <EventTrigger RoutedEvent="Click">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.5" To="1" Duration="0:0:1" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Name="mainButtonGrid" Margin="10,10,10,10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Name="mainGridCol1" Width="210" />
+            <ColumnDefinition Name="mainGridCol2" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,0,7,0" >
+
+            <Button FontSize="15" Style="{StaticResource StackButton}" Grid.Row="0" Background="{x:Null}" BorderThickness="1" BorderBrush="DarkGray" Height="25" Width="25" Click="Button_Click" Foreground="White">
+                ㅁ
+            </Button>
+            <Button FontSize="15" Style="{StaticResource StackButton}" Grid.Row="0" Background="{x:Null}" BorderThickness="1" BorderBrush="DarkGray" Height="25" Width="25" Click="Button_Click_1" Foreground="White">
+                -
+            </Button>
+            <Button FontSize="15" Style="{StaticResource StackButton}" Grid.Row="0" Background="{x:Null}" BorderThickness="1" BorderBrush="DarkGray" Height="25" Width="25" Click="Button_Click_2" Foreground="White">
+                X
+            </Button>
+        </StackPanel>
+
+        <Grid Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,0,0,20">
+
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Name="mainButtonGridCol1" Width="180" />
+                <ColumnDefinition Name="mainButtonGridCol2" Width="10" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Name="startBtnGrid" Grid.Row="0" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Button Style="{StaticResource startButton}" Grid.Row="0" Background="{x:Null}" BorderThickness="1" BorderBrush="DarkGray" Foreground="White" Margin="0,5,0,0" FontSize="40" Click="Button_Click_3" Name="startBtn">
+                    시 작
+                </Button>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Style="{StaticResource StackButton2}" Grid.Column="0" Background="{x:Null}" BorderThickness="1" BorderBrush="DarkGray" Foreground="White" Margin="0,5,0,0" FontSize="10" Name="backBtn">
+                        <Grid>
+                            <Image RenderOptions.BitmapScalingMode="HighQuality" Source="/WpfApplication6;component/Images/previous.png" />
+                        </Grid>
+                    </Button>
+                    <Button Style="{StaticResource StackButton2}" Grid.Column="1" Background="{x:Null}" BorderThickness="1" BorderBrush="DarkGray" Foreground="White" Margin="0,5,0,0" FontSize="10" Name="replayBtn">
+                        <Grid>
+                            <Image RenderOptions.BitmapScalingMode="HighQuality" Source="/WpfApplication6;component/Images/replayBtn.png" />
+                        </Grid>
+                    </Button>
+                    <Button Style="{StaticResource StackButton2}" Grid.Column="2" Background="{x:Null}" BorderThickness="1" BorderBrush="DarkGray" Foreground="White" Margin="0,5,0,0" FontSize="10" Name="nextBtn" Click="nextBtn_Click">
+                        <Grid>
+                            <Image RenderOptions.BitmapScalingMode="HighQuality" Source="/WpfApplication6;component/Images/next.png" />
+                        </Grid>
+                    </Button>
+                </Grid>
+            </Grid>
+            <Button Style="{StaticResource stopButton}" Grid.Row="1" Background="{x:Null}" BorderThickness="1" BorderBrush="DarkGray" Foreground="White" Margin="0,2,0,0" FontSize="40" Click="Button_Click_4">
+                정 지
+            </Button>
+            <Button Style="{StaticResource StackButton}" Grid.Row="2" Background="{x:Null}" BorderThickness="1" BorderBrush="DarkGray" Foreground="White" Margin="0,2,0,0" FontSize="40" Click="Button_Click_5">
+                환경설정
+            </Button>
+            <Button Style="{StaticResource StackButton}" Grid.Row="3" Background="{x:Null}" BorderThickness="1" BorderBrush="DarkGray" Foreground="White" Margin="0,2,0,0" FontSize="40" Click="Button_Click_5">
+                <TextBlock>
+                    작업
+                    <LineBreak/>
+                    정리
+                </TextBlock>
+            </Button>
+            <Button Name="slideBtn" Style="{StaticResource StackButton2}" Height="50" Grid.RowSpan="2" Grid.Row="1" Grid.Column="1" Background="{x:Null}" BorderThickness="0" BorderBrush="DarkGray" Foreground="White" Padding="0" Margin="1,0,-5,0">
+                <Grid>
+                    <Image Source="/WpfApplication6;component/Images/expand.png" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
+                </Grid>
+            </Button>
+        </Grid>
+        
+        <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2.5*" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Name="graphGrid" Margin="0,0,20,0" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <sw:WindowsFormsHost Margin="0,5,0,5" Grid.Row="0" Background="Transparent">
+                    <swf:Chart x:Name="chart1" BackColor="ControlDarkDark" BorderlineWidth="0" BorderlineColor="Transparent" Palette="None" AntiAliasing="None" IsSoftShadows="False" TextAntiAliasingQuality="Normal">
+                        <swf:Chart.Series>
+                            <swf:Series ChartType="FastLine" Color="Red">
+                                <swf:Series.EmptyPointStyle>
+                                    <swf:DataPointCustomProperties />
+                                </swf:Series.EmptyPointStyle>
+                                <swf:Series.SmartLabelStyle>
+                                    <swf:SmartLabelStyle />
+                                </swf:Series.SmartLabelStyle>
+                            </swf:Series>
+                            <swf:Series ChartType="FastLine" Color="LimeGreen">
+                                <swf:Series.EmptyPointStyle>
+                                    <swf:DataPointCustomProperties />
+                                </swf:Series.EmptyPointStyle>
+                                <swf:Series.SmartLabelStyle>
+                                    <swf:SmartLabelStyle />
+                                </swf:Series.SmartLabelStyle>
+                            </swf:Series>
+                            <swf:Series ChartType="FastLine" Color="LimeGreen">
+                                <swf:Series.EmptyPointStyle>
+                                    <swf:DataPointCustomProperties />
+                                </swf:Series.EmptyPointStyle>
+                                <swf:Series.SmartLabelStyle>
+                                    <swf:SmartLabelStyle />
+                                </swf:Series.SmartLabelStyle>
+                            </swf:Series>
+                            <swf:Series Name="replay" ChartType="FastLine"/>
+                        </swf:Chart.Series>
+                        <swf:Chart.ChartAreas>
+                            <swf:ChartArea BackColor="Transparent" BorderColor="Transparent">
+                                <swf:ChartArea.Area3DStyle>
+                                    <swf:ChartArea3DStyle />
+                                </swf:ChartArea.Area3DStyle>
+                                <swf:ChartArea.AxisX>
+                                    <swf:Axis>
+                                        <swf:Axis.LabelStyle>
+                                            <swf:LabelStyle />
+                                        </swf:Axis.LabelStyle>
+                                        <swf:Axis.MajorGrid>
+                                            <swf:Grid />
+                                        </swf:Axis.MajorGrid>
+                                        <swf:Axis.MajorTickMark>
+                                            <swf:TickMark />
+                                        </swf:Axis.MajorTickMark>
+                                        <swf:Axis.MinorGrid>
+                                            <swf:Grid />
+                                        </swf:Axis.MinorGrid>
+                                        <swf:Axis.MinorTickMark>
+                                            <swf:TickMark />
+                                        </swf:Axis.MinorTickMark>
+                                        <swf:Axis.ScaleBreakStyle>
+                                            <swf:AxisScaleBreakStyle />
+                                        </swf:Axis.ScaleBreakStyle>
+                                        <swf:Axis.ScaleView>
+                                            <swf:AxisScaleView />
+                                        </swf:Axis.ScaleView>
+                                        <swf:Axis.ScrollBar>
+                                            <swf:AxisScrollBar />
+                                        </swf:Axis.ScrollBar>
+                                    </swf:Axis>
+                                </swf:ChartArea.AxisX>
+                                <swf:ChartArea.AxisX2>
+                                    <swf:Axis>
+                                        <swf:Axis.LabelStyle>
+                                            <swf:LabelStyle />
+                                        </swf:Axis.LabelStyle>
+                                        <swf:Axis.MajorGrid>
+                                            <swf:Grid />
+                                        </swf:Axis.MajorGrid>
+                                        <swf:Axis.MajorTickMark>
+                                            <swf:TickMark />
+                                        </swf:Axis.MajorTickMark>
+                                        <swf:Axis.MinorGrid>
+                                            <swf:Grid />
+                                        </swf:Axis.MinorGrid>
+                                        <swf:Axis.MinorTickMark>
+                                            <swf:TickMark />
+                                        </swf:Axis.MinorTickMark>
+                                        <swf:Axis.ScaleBreakStyle>
+                                            <swf:AxisScaleBreakStyle />
+                                        </swf:Axis.ScaleBreakStyle>
+                                        <swf:Axis.ScaleView>
+                                            <swf:AxisScaleView />
+                                        </swf:Axis.ScaleView>
+                                        <swf:Axis.ScrollBar>
+                                            <swf:AxisScrollBar />
+                                        </swf:Axis.ScrollBar>
+                                    </swf:Axis>
+                                </swf:ChartArea.AxisX2>
+                                <swf:ChartArea.AxisY>
+                                    <swf:Axis>
+                                        <swf:Axis.LabelStyle>
+                                            <swf:LabelStyle />
+                                        </swf:Axis.LabelStyle>
+                                        <swf:Axis.MajorGrid>
+                                            <swf:Grid />
+                                        </swf:Axis.MajorGrid>
+                                        <swf:Axis.MajorTickMark>
+                                            <swf:TickMark />
+                                        </swf:Axis.MajorTickMark>
+                                        <swf:Axis.MinorGrid>
+                                            <swf:Grid />
+                                        </swf:Axis.MinorGrid>
+                                        <swf:Axis.MinorTickMark>
+                                            <swf:TickMark />
+                                        </swf:Axis.MinorTickMark>
+                                        <swf:Axis.ScaleBreakStyle>
+                                            <swf:AxisScaleBreakStyle />
+                                        </swf:Axis.ScaleBreakStyle>
+                                        <swf:Axis.ScaleView>
+                                            <swf:AxisScaleView />
+                                        </swf:Axis.ScaleView>
+                                        <swf:Axis.ScrollBar>
+                                            <swf:AxisScrollBar />
+                                        </swf:Axis.ScrollBar>
+                                    </swf:Axis>
+                                </swf:ChartArea.AxisY>
+                                <swf:ChartArea.AxisY2>
+                                    <swf:Axis>
+                                        <swf:Axis.LabelStyle>
+                                            <swf:LabelStyle />
+                                        </swf:Axis.LabelStyle>
+                                        <swf:Axis.MajorGrid>
+                                            <swf:Grid />
+                                        </swf:Axis.MajorGrid>
+                                        <swf:Axis.MajorTickMark>
+                                            <swf:TickMark />
+                                        </swf:Axis.MajorTickMark>
+                                        <swf:Axis.MinorGrid>
+                                            <swf:Grid />
+                                        </swf:Axis.MinorGrid>
+                                        <swf:Axis.MinorTickMark>
+                                            <swf:TickMark />
+                                        </swf:Axis.MinorTickMark>
+                                        <swf:Axis.ScaleBreakStyle>
+                                            <swf:AxisScaleBreakStyle />
+                                        </swf:Axis.ScaleBreakStyle>
+                                        <swf:Axis.ScaleView>
+                                            <swf:AxisScaleView />
+                                        </swf:Axis.ScaleView>
+                                        <swf:Axis.ScrollBar>
+                                            <swf:AxisScrollBar />
+                                        </swf:Axis.ScrollBar>
+                                    </swf:Axis>
+                                </swf:ChartArea.AxisY2>
+                                <swf:ChartArea.CursorX>
+                                    <swf:Cursor />
+                                </swf:ChartArea.CursorX>
+                                <swf:ChartArea.CursorY>
+                                    <swf:Cursor />
+                                </swf:ChartArea.CursorY>
+                            </swf:ChartArea>
+                        </swf:Chart.ChartAreas>
+                    </swf:Chart>
+                </sw:WindowsFormsHost>
+                <sw:WindowsFormsHost Margin="0,5,0,5" Grid.Row="1" Background="Transparent">
+                    <swf:Chart x:Name="chart2" BackColor="ControlDarkDark" BorderlineWidth="0" BorderlineColor="Transparent" Palette="None" AntiAliasing="None" IsSoftShadows="False" TextAntiAliasingQuality="Normal">
+                        <swf:Chart.Series>
+                            <swf:Series Color="Red" ChartType="FastLine">
+                                <swf:Series.EmptyPointStyle>
+                                    <swf:DataPointCustomProperties />
+                                </swf:Series.EmptyPointStyle>
+                                <swf:Series.SmartLabelStyle>
+                                    <swf:SmartLabelStyle />
+                                </swf:Series.SmartLabelStyle>
+                            </swf:Series>
+                            <swf:Series ChartType="FastLine" Color="LimeGreen">
+                                <swf:Series.EmptyPointStyle>
+                                    <swf:DataPointCustomProperties />
+                                </swf:Series.EmptyPointStyle>
+                                <swf:Series.SmartLabelStyle>
+                                    <swf:SmartLabelStyle />
+                                </swf:Series.SmartLabelStyle>
+                            </swf:Series>
+                            <swf:Series ChartType="FastLine" Color="LimeGreen">
+                                <swf:Series.EmptyPointStyle>
+                                    <swf:DataPointCustomProperties />
+                                </swf:Series.EmptyPointStyle>
+                                <swf:Series.SmartLabelStyle>
+                                    <swf:SmartLabelStyle />
+                                </swf:Series.SmartLabelStyle>
+                            </swf:Series>
+                        </swf:Chart.Series>
+                        <swf:Chart.ChartAreas>
+                            <swf:ChartArea BackColor="Transparent" BorderColor="Transparent">
+                                <swf:ChartArea.Area3DStyle>
+                                    <swf:ChartArea3DStyle />
+                                </swf:ChartArea.Area3DStyle>
+                                <swf:ChartArea.AxisX>
+                                    <swf:Axis>
+                                        <swf:Axis.LabelStyle>
+                                            <swf:LabelStyle />
+                                        </swf:Axis.LabelStyle>
+                                        <swf:Axis.MajorGrid>
+                                            <swf:Grid />
+                                        </swf:Axis.MajorGrid>
+                                        <swf:Axis.MajorTickMark>
+                                            <swf:TickMark />
+                                        </swf:Axis.MajorTickMark>
+                                        <swf:Axis.MinorGrid>
+                                            <swf:Grid />
+                                        </swf:Axis.MinorGrid>
+                                        <swf:Axis.MinorTickMark>
+                                            <swf:TickMark />
+                                        </swf:Axis.MinorTickMark>
+                                        <swf:Axis.ScaleBreakStyle>
+                                            <swf:AxisScaleBreakStyle />
+                                        </swf:Axis.ScaleBreakStyle>
+                                        <swf:Axis.ScaleView>
+                                            <swf:AxisScaleView />
+                                        </swf:Axis.ScaleView>
+                                        <swf:Axis.ScrollBar>
+                                            <swf:AxisScrollBar />
+                                        </swf:Axis.ScrollBar>
+                                    </swf:Axis>
+                                </swf:ChartArea.AxisX>
+                                <swf:ChartArea.AxisX2>
+                                    <swf:Axis>
+                                        <swf:Axis.LabelStyle>
+                                            <swf:LabelStyle />
+                                        </swf:Axis.LabelStyle>
+                                        <swf:Axis.MajorGrid>
+                                            <swf:Grid />
+                                        </swf:Axis.MajorGrid>
+                                        <swf:Axis.MajorTickMark>
+                                            <swf:TickMark />
+                                        </swf:Axis.MajorTickMark>
+                                        <swf:Axis.MinorGrid>
+                                            <swf:Grid />
+                                        </swf:Axis.MinorGrid>
+                                        <swf:Axis.MinorTickMark>
+                                            <swf:TickMark />
+                                        </swf:Axis.MinorTickMark>
+                                        <swf:Axis.ScaleBreakStyle>
+                                            <swf:AxisScaleBreakStyle />
+                                        </swf:Axis.ScaleBreakStyle>
+                                        <swf:Axis.ScaleView>
+                                            <swf:AxisScaleView />
+                                        </swf:Axis.ScaleView>
+                                        <swf:Axis.ScrollBar>
+                                            <swf:AxisScrollBar />
+                                        </swf:Axis.ScrollBar>
+                                    </swf:Axis>
+                                </swf:ChartArea.AxisX2>
+                                <swf:ChartArea.AxisY>
+                                    <swf:Axis>
+                                        <swf:Axis.LabelStyle>
+                                            <swf:LabelStyle />
+                                        </swf:Axis.LabelStyle>
+                                        <swf:Axis.MajorGrid>
+                                            <swf:Grid />
+                                        </swf:Axis.MajorGrid>
+                                        <swf:Axis.MajorTickMark>
+                                            <swf:TickMark />
+                                        </swf:Axis.MajorTickMark>
+                                        <swf:Axis.MinorGrid>
+                                            <swf:Grid />
+                                        </swf:Axis.MinorGrid>
+                                        <swf:Axis.MinorTickMark>
+                                            <swf:TickMark />
+                                        </swf:Axis.MinorTickMark>
+                                        <swf:Axis.ScaleBreakStyle>
+                                            <swf:AxisScaleBreakStyle />
+                                        </swf:Axis.ScaleBreakStyle>
+                                        <swf:Axis.ScaleView>
+                                            <swf:AxisScaleView />
+                                        </swf:Axis.ScaleView>
+                                        <swf:Axis.ScrollBar>
+                                            <swf:AxisScrollBar />
+                                        </swf:Axis.ScrollBar>
+                                    </swf:Axis>
+                                </swf:ChartArea.AxisY>
+                                <swf:ChartArea.AxisY2>
+                                    <swf:Axis>
+                                        <swf:Axis.LabelStyle>
+                                            <swf:LabelStyle />
+                                        </swf:Axis.LabelStyle>
+                                        <swf:Axis.MajorGrid>
+                                            <swf:Grid />
+                                        </swf:Axis.MajorGrid>
+                                        <swf:Axis.MajorTickMark>
+                                            <swf:TickMark />
+                                        </swf:Axis.MajorTickMark>
+                                        <swf:Axis.MinorGrid>
+                                            <swf:Grid />
+                                        </swf:Axis.MinorGrid>
+                                        <swf:Axis.MinorTickMark>
+                                            <swf:TickMark />
+                                        </swf:Axis.MinorTickMark>
+                                        <swf:Axis.ScaleBreakStyle>
+                                            <swf:AxisScaleBreakStyle />
+                                        </swf:Axis.ScaleBreakStyle>
+                                        <swf:Axis.ScaleView>
+                                            <swf:AxisScaleView />
+                                        </swf:Axis.ScaleView>
+                                        <swf:Axis.ScrollBar>
+                                            <swf:AxisScrollBar />
+                                        </swf:Axis.ScrollBar>
+                                    </swf:Axis>
+                                </swf:ChartArea.AxisY2>
+                                <swf:ChartArea.CursorX>
+                                    <swf:Cursor />
+                                </swf:ChartArea.CursorX>
+                                <swf:ChartArea.CursorY>
+                                    <swf:Cursor />
+                                </swf:ChartArea.CursorY>
+                            </swf:ChartArea>
+                        </swf:Chart.ChartAreas>
+                    </swf:Chart>
+                </sw:WindowsFormsHost>
+            </Grid>
+            <Grid Grid.Row="1" Margin="0,0,20,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid Name="jobNumGrid" Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Row="0" Grid.Column="0" BorderBrush="Silver" BorderThickness="1" CornerRadius="10">
+                        <Label Content="당일 작업 수" Foreground="White" HorizontalAlignment="Stretch" Margin="0,0,0,0" Name="label1" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="28" />
+                    </Border>
+                    <Border Grid.Row="0" Grid.Column="1" BorderBrush="Silver" BorderThickness="1" CornerRadius="10">
+                        <Label Content="불량 용접 수" Foreground="White" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="28" />
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="0" BorderBrush="Silver" BorderThickness="1" CornerRadius="10" Background="Black">
+                        <Label Content="0" Grid.Row="1" Foreground="DarkGray" HorizontalAlignment="Stretch" Margin="0,0,0,0" Name="label3" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="100" FontWeight="Bold" Background="{x:Null}" />
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="1" BorderBrush="Silver" BorderThickness="1" CornerRadius="10" Background="Black">
+                        <Label Content="0"  Foreground="Crimson" HorizontalAlignment="Stretch" Margin="0,0,0,0" Name="label5" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="100" FontWeight="Bold" Background="{x:Null}" />
+                    </Border>
+                </Grid>
+                <Grid Grid.Column="1" Margin="0,0,0,0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Grid.Column="1" BorderBrush="Silver" BorderThickness="1" CornerRadius="10">
+                        <Label Content="불량 용접 파트 정보" Foreground="White" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="28" Background="{x:Null}" />
+                    </Border>
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding Path=LoadDataBinding5}" AutoGenerateColumns="False" Name="dataGrid1" BorderBrush="Transparent">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=Index}" Header="번호" />
+                            <DataGridTextColumn Binding="{Binding Path=Part}" Header="파트" />
+                            <DataGridTextColumn Binding="{Binding Path=Date}" Header="파트 용접 종료 시간" />
+                            <DataGridTextColumn Binding="{Binding Path=Stitch}" Header="스티치 번호" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+        </Grid>
+        <StatusBar Background="{x:Null}" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"  Name="statusBar1" VerticalAlignment="Stretch" Margin="0,0,88,0">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="4">
+                <Label Content="{Binding Source={StaticResource notifyingDate}, Path=Now}" Name="time" Foreground="WhiteSmoke" FontSize="18" />
+            </StatusBarItem>
+            <Separator Height="25" Width="1" Background="SlateGray" IsEnabled="False" />
+            <StatusBarItem>
+                <Label Foreground="WhiteSmoke" FontSize="18">
+                    프로젝트 명 :
+                </Label>
+            </StatusBarItem>
+            <StatusBarItem>
+                <Label Name="label_projectName" Foreground="WhiteSmoke" FontSize="18" />
+            </StatusBarItem>
+            <Separator Height="25" Width="1" Background="SlateGray" />
+            <StatusBarItem>
+                <Label Name="partName_label" Foreground="WhiteSmoke" FontSize="18" />
+            </StatusBarItem>
+            <StatusBarItem>
+                <Label Name="label_partName" Foreground="WhiteSmoke" FontSize="18" />
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
